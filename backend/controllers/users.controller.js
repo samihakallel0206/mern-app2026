@@ -11,23 +11,27 @@ exports.getAllUsers = async (req, res) => {
 
 //un user
 exports.getOneUser = async (req, res) => {
-    try {
-      const { id } = req.params;
-      const userToGet = await User.findById(id).select("-password")
-      if (!userToGet) {
-        return res.status(404).json({msg: "Cet utilisateur n'existe pas! "})
-      }
-     res.status(200).json({msg:"l'utilisateur est:", user:userToGet})
-    } catch (error) {
-        res.status(500).json(error);
+  try {
+    const { id } = req.params;
+    const userToGet = await User.findById(id).select("-password");
+    if (!userToGet) {
+      return res.status(404).json({ msg: "Cet utilisateur n'existe pas! " });
     }
-}
+    res.status(200).json({ msg: "l'utilisateur est:", user: userToGet });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
 
-//delete User 
+//delete User
 exports.deleteUser = async (req, res) => {
-    try {
-        
-    } catch (error) {
-        
-    }
-}
+  try {
+    const { id } = req.params;
+    const userToDelete = await User.findByIdAndDelete(id);
+    if (!userToDelete)
+      return res.status(404).json({ msg: "L'utilisateur n'exite pas!" });
+    res.status(200).json({ msg: "Suppression réussite!", user:userToDelete });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};

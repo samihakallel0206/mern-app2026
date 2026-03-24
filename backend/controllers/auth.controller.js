@@ -6,7 +6,7 @@ exports.register = async (req, res) => {
   try {
     //récupérer la requête
     const { name, email, password, image } = req.body;
-    console.log("req.body", req.body);
+    // console.log("req.body", req.body);
     //chercher le user avec cet email
     const foundUser = await User.findOne({ email });
     // si email trouvé je sors : message d'erreur

@@ -11,4 +11,5 @@ router.get('/:id', isAdmin, getOneUser)
 router.delete('/:id', isAdmin, deleteUser)
 
 
+
 module.exports = router;
