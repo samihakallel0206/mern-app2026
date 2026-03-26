@@ -9,6 +9,7 @@ const NavBare = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isAuth = useSelector((state) => state.authReducer.isAuth);
+  const user = useSelector((state) => state.authReducer.user);
   // console.log(isAuth);
   return (
     <div>
@@ -19,6 +20,7 @@ const NavBare = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="/">Home</Nav.Link>
+              {user.isAdmin && <Nav.Link href="/admin">Dashboard</Nav.Link>}
               {isAuth ? (
                 <>
                   <Nav.Link href="/profile">Profile</Nav.Link>

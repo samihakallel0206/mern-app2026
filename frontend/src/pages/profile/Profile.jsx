@@ -3,7 +3,7 @@ import "./profile.css";
 
 const Profile = () => {
   const user = useSelector((state) => state.authReducer.user);
-  console.log(user);
+  // console.log(user);
   return (
     <div className="m-5 page">
       <h4>Page Profile</h4>

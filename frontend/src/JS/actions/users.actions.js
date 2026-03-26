@@ -47,6 +47,7 @@ export const deleteUser = (id) => async (dispatch) => {
     };
     const result = await axios.delete(`/api/users/${id}`, config);
     dispatch({ type: DELETE_USER, payload: result.data.user });
+    dispatch(getUsers()) //c'est pour raffraichir l'affichage
   } catch (error) {
     dispatch({ type: FAIL_USER, payload: error.response.data.errors });
   }
