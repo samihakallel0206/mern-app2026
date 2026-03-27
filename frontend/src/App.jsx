@@ -12,10 +12,11 @@ import { useEffect } from "react";
 import { current } from "./JS/actions/auth.actions";
 import DashboardAdmin from "./pages/dashboard/DashboardAdmin";
 import Loading from "./components/Loading";
+import PrivateRoute from "./routes/PrivateRoute";
 
 function App() {
   const dispatch = useDispatch();
-  const { isAuth, isLoad } = useSelector((state) => state.authReducer);
+  const { isAuth, isLoad, user } = useSelector((state) => state.authReducer);
   useEffect(() => {
     if (localStorage.getItem("token")) {
       dispatch(current());
@@ -33,13 +34,24 @@ function App() {
           <Route path="/profile" element={<Profile />} />
         ) : (
           <>
-            <Route path="/profile" element={<Login />} /> 
+            <Route path="/profile" element={<Login />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </>
         )}
+        <Route
+          path="/admin"
+          element={
+            <PrivateRoute
+              isAdmin={user.isAdmin}
+              isAuth={isAuth}
+              isLoad={isLoad}
+            />
+          }
+        >
+          <Route index element={<DashboardAdmin />} />
+        </Route>
 
-        <Route path="/admin" element={<DashboardAdmin />} />
         <Route path="/*" element={<Error />} />
       </Routes>
       <Footer />

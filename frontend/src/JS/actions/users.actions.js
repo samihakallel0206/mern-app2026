@@ -1,6 +1,6 @@
 import axios from "axios";
 import {
-    DELETE_USER,
+  DELETE_USER,
   FAIL_USER,
   GET_ALL_USERS,
   GET_ONE_USER,
@@ -18,7 +18,8 @@ export const getUsers = () => async (dispatch) => {
     const result = await axios.get("/api/users/all", config);
     dispatch({ type: GET_ALL_USERS, payload: result.data.listUsers });
   } catch (error) {
-    dispatch({ type: FAIL_USER, payload: error.response.data.errors });
+    console.log(error);
+    dispatch({ type: FAIL_USER, payload: error.response.data });
   }
 };
 
@@ -34,7 +35,7 @@ export const getOneUser = (id) => async (dispatch) => {
     const result = await axios.get(`/api/users/${id}`, config);
     dispatch({ type: GET_ONE_USER, payload: result.data.user });
   } catch (error) {
-    dispatch({ type: FAIL_USER, payload: error.response.data.errors });
+    dispatch({ type: FAIL_USER, payload: error.response.data });
   }
 };
 export const deleteUser = (id) => async (dispatch) => {
@@ -47,8 +48,8 @@ export const deleteUser = (id) => async (dispatch) => {
     };
     const result = await axios.delete(`/api/users/${id}`, config);
     dispatch({ type: DELETE_USER, payload: result.data.user });
-    dispatch(getUsers()) //c'est pour raffraichir l'affichage
+    dispatch(getUsers()); //c'est pour raffraichir l'affichage
   } catch (error) {
-    dispatch({ type: FAIL_USER, payload: error.response.data.errors });
+    dispatch({ type: FAIL_USER, payload: error.response.data });
   }
 };
