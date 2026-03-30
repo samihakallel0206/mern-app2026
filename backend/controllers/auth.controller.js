@@ -26,10 +26,21 @@ exports.register = async (req, res) => {
     const token = jwt.sign({ id: newUser._id }, process.env.SECRET_KEY, {
       expiresIn: "2h",
     });
+    ///changement
+    const userToReturn = {
+      _id: newUser._id,
+      name: newUser.name,
+      email: newUser.email,
+      image: newUser.image,
+      isAdmin: newUser.isAdmin,
+      createdAt: newUser.createdAt,
+      updatedAt: newUser.updatedAt,
+    };
     // console.log(token);
     res.status(201).json({
       success: [{ msg: "Utilisateur créer avec succès." }], ///message destine pour le client
-      user: newUser, // crée
+      // user: newUser, // non sécurisé
+      user: userToReturn, // crée
       token,
     });
   } catch (error) {
@@ -66,10 +77,19 @@ exports.login = async (req, res) => {
     const token = jwt.sign({ id: foundUser._id }, process.env.SECRET_KEY, {
       expiresIn: "2h",
     });
+    const userToReturn = {
+      _id: foundUser._id,
+      name: foundUser.name,
+      email: foundUser.email,
+      image: foundUser.image,
+      isAdmin: foundUser.isAdmin,
+      createdAt: foundUser.createdAt,
+      updatedAt: foundUser.updatedAt,
+    };
     // response :connecté
     res.status(200).json({
       success: [{ msg: "Succès de connexion!!!" }],
-      user: foundUser,
+      user: userToReturn,
       token,
     });
   } catch (error) {

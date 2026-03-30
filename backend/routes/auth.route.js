@@ -14,6 +14,16 @@ router.post("/register", registerValidation(), validation, register);
 router.post("/login", loginValidation(), validation, login);
 //current: pour savoir ? authentifié
 router.get("/current", isAuth, (req, res) => {
-  res.json(req.user);
+  //pour une question de sécurité on ne retourne pas tout l'utilisateur mais juste les infos nécessaires (sans le mot de passe)
+  const userToReturn = {
+    _id: req.user._id,
+    name: req.user.name,
+    email: req.user.email,
+    image: req.user.image,
+    isAdmin: req.user.isAdmin,
+    createdAt: req.user.createdAt,
+    updatedAt: req.user.updatedAt,
+  };
+  res.json(userToReturn);
 });
 module.exports = router;

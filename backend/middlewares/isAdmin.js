@@ -3,8 +3,8 @@ const User = require("../models/User");
 
 const isAdmin = async (req, res, next) => {
   try {
-      const token = req.headers["authorization"];
-      
+    const token = req.headers["authorization"];
+
     // console.log(req.headers["authorization"]);
     if (!token) {
       return res.status(400).json({ msg: "Pas de token" });
