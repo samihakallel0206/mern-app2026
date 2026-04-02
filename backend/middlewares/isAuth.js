@@ -8,7 +8,7 @@ const isAuth = async (req, res, next) => {
     if (!token) {
       return res.status(400).json({ errors: [{ msg: "Pas de token" }] });
     }
-
+    console.log(token)
     //user qui correspond a ce token
     const decode = jwt.verify(token, process.env.SECRET_KEY);
     // console.log(decode)
@@ -17,6 +17,7 @@ const isAuth = async (req, res, next) => {
       return res.status(404).json({ errors: [{ msg: "Utilisateur non trouvé" }] });
     }
     req.user = foundUser;
+    console.log(req.user)
     next();
   } catch (error) {
     

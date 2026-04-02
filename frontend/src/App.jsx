@@ -13,6 +13,7 @@ import { current } from "./JS/actions/auth.actions";
 import DashboardAdmin from "./pages/dashboard/DashboardAdmin";
 import Loading from "./components/Loading";
 import PrivateRoute from "./routes/PrivateRoute";
+import ProdDetails from "./pages/prodDetails/ProdDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ function App() {
       <NavBare />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/prod/:id" element ={<ProdDetails/>}/>
 
         {isAuth ? (
           <Route path="/profile" element={<Profile />} />

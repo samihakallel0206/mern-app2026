@@ -2,6 +2,7 @@ const Product = require("../models/Product");
 //!CREATE
 exports.addProd = async (req, res) => {
   try {
+    // console.log(req.body)
     const newProd = new Product({ ...req.body, addedBy: req.user._id });
     await newProd.save();
     res.status(201).json({
