@@ -74,3 +74,23 @@ exports.updateProd = async (req, res) => {
       .json({ msg: "Impossible mettre à jour ce produit ", error });
   }
 };
+
+//!DELETE
+exports.deleteProd = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const prodToFind = await Product.findById(id);
+    if (!prodToFind) {
+      return res.status(404).json({ msg: "Le produit n'existe pas " });
+    }
+    if (prodToFind.addedBy.toString() !== req.user._id.toString()) {
+      return res
+        .status(403)
+        .json({ msg: "Tu n'as pas le droit de supprimer ce produit!" });
+    }
+    await Product.findByIdAndDelete(id);
+    res.status(200).json({ msg: "Produit supprimé!", prodToFind });
+  } catch (error) {
+    res.status(500).json({ msg: "Impossible de supprimer ce produit ", error });
+  }
+};

@@ -1,15 +1,20 @@
-import "./home.css"
-
+import { useEffect } from "react";
+import "./home.css";
+import { useDispatch } from "react-redux";
+import { getALLProducts } from "../../JS/actions/prod.actions";
+import ListProducts from "../../components/ListProducts";
 const Home = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getALLProducts()); //je remplis le tableau des produits
+  }, [dispatch]);
+
   return (
     <div className="page">
-      <img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1K7C7227at0RbBgD-rCo0bNEgsvonZCObsw&s"
-        className="img-fluid rounded-top m-5"
-        alt="home page"
-      />
+      <h1>Nos Produits</h1>
+      <ListProducts/>
     </div>
   );
-}
+};
 
-export default Home
+export default Home;

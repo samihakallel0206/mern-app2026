@@ -26,7 +26,7 @@ exports.register = async (req, res) => {
     const token = jwt.sign({ id: newUser._id }, process.env.SECRET_KEY, {
       expiresIn: "2h",
     });
-    ///changement
+    ///changement pour ne pas retourner le mot de passe dans la réponse
     const userToReturn = {
       _id: newUser._id,
       name: newUser.name,
@@ -40,7 +40,7 @@ exports.register = async (req, res) => {
     res.status(201).json({
       success: [{ msg: "Utilisateur créer avec succès." }], ///message destine pour le client
       // user: newUser, // non sécurisé
-      user: userToReturn, // crée
+      user: userToReturn, // crée pour ne pas retourner le mot de passe
       token,
     });
   } catch (error) {
@@ -77,6 +77,7 @@ exports.login = async (req, res) => {
     const token = jwt.sign({ id: foundUser._id }, process.env.SECRET_KEY, {
       expiresIn: "2h",
     });
+    //l'utilisateur connecté : ne pas retourner le mot de passe
     const userToReturn = {
       _id: foundUser._id,
       name: foundUser.name,

@@ -20,7 +20,7 @@ const NavBare = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="/">Home</Nav.Link>
-              {user.isAdmin && <Nav.Link href="/admin">Dashboard</Nav.Link>}
+              {user?.isAdmin && <Nav.Link href="/admin">Dashboard</Nav.Link>}
               {isAuth ? (
                 <>
                   <Nav.Link href="/profile">Profile</Nav.Link>
