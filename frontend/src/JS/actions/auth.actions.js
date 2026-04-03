@@ -1,6 +1,8 @@
 //nos actions
 
 import {
+  CLEAR_ERROR,
+  CLEAR_SUCCESS,
   CURRENT_AUTH,
   FAIL_AUTH,
   LOAD_AUTH,
@@ -59,3 +61,12 @@ export const logout = (navigate) => (dispatch) => {
   dispatch({ type: LOGOUT_AUTH });
   navigate('/')
 };
+
+export const clearError = () => {
+  return {type:CLEAR_ERROR}
+  
+}
+export const clearSuccess = () => {
+  return {type:CLEAR_SUCCESS}
+  
+}

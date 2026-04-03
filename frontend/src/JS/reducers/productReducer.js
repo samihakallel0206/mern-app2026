@@ -2,6 +2,8 @@
 
 import {
   ADD_PROD,
+  DELETE_PROD,
+  EDIT_PROD,
   FAIL_PROD,
   GET_ALL_PRODS,
   GET_MY_PRODS,
@@ -39,6 +41,20 @@ const productReducer = (state = initialState, { type, payload }) => {
       };
     case GET_MY_PRODS:
       return { ...state, isLoadProd: false, myProd: payload };
+    case EDIT_PROD:
+      return {
+        ...state,
+        isLoadProd: false,
+        products: state.products.map((prod) =>
+          prod._id === payload.id ? { ...prod, ...payload.prodEdited } : prod,
+        ),
+      };
+    case DELETE_PROD:
+      return {
+        ...state,
+        isLoadProd: false,
+        products: state.products.filter((prod) => prod.id !== payload.id),
+      };
     default:
       return state;
   }

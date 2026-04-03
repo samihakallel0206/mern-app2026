@@ -1,5 +1,8 @@
 //import
+import { clearSuccess } from "../actions/auth.actions";
 import {
+  CLEAR_ERROR,
+  CLEAR_SUCCESS,
   CURRENT_AUTH,
   FAIL_AUTH,
   LOAD_AUTH,
@@ -11,7 +14,7 @@ import {
 const initailState = {
   isLoad: false,
   user: {},
-  errors: null,
+  errors: [],
   success: [],
   isAuth: false,
 };
@@ -44,10 +47,14 @@ const authReducer = (state = initailState, { type, payload }) => {
       return {
         isLoad: false,
         user: {},
-        errors: null,
+        errors: [],
         success: [],
         isAuth: false,
       };
+    case CLEAR_ERROR:
+      return { ...state, errors: [] };
+    case CLEAR_SUCCESS:
+      return { ...state, success: [] };
     default:
       return state;
   }

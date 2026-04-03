@@ -14,10 +14,13 @@ import DashboardAdmin from "./pages/dashboard/DashboardAdmin";
 import Loading from "./components/Loading";
 import PrivateRoute from "./routes/PrivateRoute";
 import ProdDetails from "./pages/prodDetails/ProdDetails";
+import ErrorToast from "./components/ErrorToast";
 
 function App() {
   const dispatch = useDispatch();
-  const { isAuth, isLoad, user } = useSelector((state) => state.authReducer);
+  const { isAuth, isLoad, user, errors } = useSelector(
+    (state) => state.authReducer,
+  );
   useEffect(() => {
     if (localStorage.getItem("token")) {
       dispatch(current());
@@ -27,10 +30,11 @@ function App() {
   return (
     <div className="App">
       {isLoad && <Loading />}
+      {errors.length !== 0 && <ErrorToast errors={errors} />}
       <NavBare />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/prod/:id" element ={<ProdDetails/>}/>
+        <Route path="/prod/:id" element={<ProdDetails />} />
 
         {isAuth ? (
           <Route path="/profile" element={<Profile />} />
@@ -41,7 +45,7 @@ function App() {
             <Route path="/register" element={<Register />} />
           </>
         )}
-        
+
         <Route
           path="/admin"
           element={

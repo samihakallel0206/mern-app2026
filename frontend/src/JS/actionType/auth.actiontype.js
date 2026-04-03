@@ -12,3 +12,8 @@ export const LOGOUT_AUTH = "LOGOUT_AUTH";
 
 //echec de l'authentification
 export const FAIL_AUTH = "FAIL_AUTH";
+
+
+// ------------------ERREUR------------------
+export const CLEAR_ERROR = "CLEAR_ERROR";
+export const CLEAR_SUCCESS = "CLEAR_SUCCESS";

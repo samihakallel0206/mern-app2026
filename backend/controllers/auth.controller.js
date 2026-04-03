@@ -64,14 +64,14 @@ exports.login = async (req, res) => {
     if (!foundUser) {
       return res
         .status(400)
-        .json({ errors: [{ msg: "Erreur d'authentification " }] });
+        .json({ errors: [{ msg: "Erreur d'authentification1 " }] });
     }
     const checkPassword = await bcrypt.compare(password, foundUser.password);
     //mot de passe
     if (!checkPassword) {
       return res
         .status(400)
-        .json({ errors: [{ msg: "Erreur d'authentification " }] });
+        .json({ errors: [{ msg: "Erreur d'authentification2 " }] });
     }
     //token
     const token = jwt.sign({ id: foundUser._id }, process.env.SECRET_KEY, {

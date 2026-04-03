@@ -12,8 +12,11 @@ const ProdDetails = () => {
   }, [dispatch, params.id]);
   return (
     <div>
-      {prod.title}
-      <img src={prod.image} alt={prod.title} />
+      <h3 className="m-3">Détail du {prod.title}</h3>
+      <div className="page m-5 d-flex align-items-center justify-content-around">
+        {prod.description}
+        <img src={prod.image} alt={prod.title} width={350} />
+      </div>
     </div>
   );
 };

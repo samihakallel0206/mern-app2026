@@ -1,5 +1,7 @@
 import {
   ADD_PROD,
+  DELETE_PROD,
+  EDIT_PROD,
   FAIL_PROD,
   GET_ALL_PRODS,
   GET_MY_PRODS,
@@ -56,6 +58,34 @@ export const getMyProd = () => async (dispatch) => {
     const result = await axios.get("/api/products/me", config);
 
     dispatch({ type: GET_MY_PRODS, payload: result.data.maListProd });
+  } catch (error) {
+    dispatch({ type: FAIL_PROD, payload: error.response.data });
+  }
+};
+
+export const editProd = (id, prodEdited) => async (dispatch) => {
+  dispatch({ type: LOAD_PROD });
+  try {
+    const config = {
+      headers: { authorization: localStorage.getItem("token") },
+    };
+    const result = await axios.put(`/api/products/${id}`, prodEdited, config);
+    dispatch({ type: EDIT_PROD, payload: result.data });
+     dispatch(getMyProd());
+  } catch (error) {
+    dispatch({ type: FAIL_PROD, payload: error.response.data });
+  }
+};
+
+export const deleteProd = (id) => async (dispatch) => {
+  dispatch({ type: LOAD_PROD });
+  try {
+    const config = {
+      headers: { authorization: localStorage.getItem("token") },
+    };
+    const result = await axios.delete(`/api/products/${id}`, config);
+    dispatch({ type: DELETE_PROD, payload: result.data.prodToFind });
+    dispatch(getMyProd())
   } catch (error) {
     dispatch({ type: FAIL_PROD, payload: error.response.data });
   }
